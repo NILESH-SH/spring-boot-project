@@ -31,5 +31,8 @@ public class User {
     private String passwordHash;
 
     @OneToMany(mappedBy = "user")
-    private List<Patient> doctors;
+    private List<Patient> patients;
+
+    @OneToMany(mappedBy = "user")
+    private List<Doctor> doctors;
 }
