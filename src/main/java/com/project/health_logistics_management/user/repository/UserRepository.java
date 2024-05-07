@@ -14,29 +14,44 @@ import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
-
-}
-
-// public class UserRepository{
-
-//     @Autowired
-//     private EntityManager entityManager;
-
-//     public User save(User user) {
-//         // TODO Auto-generated method stub
-//         throw new UnsupportedOperationException("Unimplemented method 'save'");
-//     }
-
-//     public List<User> findAll() {
-//         // TODO Auto-generated method stub
-//         throw new UnsupportedOperationException("Unimplemented method 'findAll'");
-//     }
-
-//     public Optional<Role> findById(int id) {
-//         // TODO Auto-generated method stub
-//         throw new UnsupportedOperationException("Unimplemented method 'findById'");
-//     }
-
+// public interface UserRepository extends JpaRepository<User, Integer> {
 
 // }
+
+public class UserRepository {
+
+    @Autowired
+    private EntityManager entityManager;
+
+    @Transactional
+    public User save(User user) {
+        entityManager.persist(user);
+        return user;
+    }
+
+    @Transactional
+    public List<User> findAll() {
+        return entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
+    }
+
+    @Transactional
+    public User findById(int id) {
+        return entityManager.find(User.class, id);
+
+    }
+
+    @Transactional
+    public void deleteUser(int id) {
+        User u =  findById(id);
+        entityManager.remove(u);
+    }
+
+    @Transactional
+    public User updateUser(User user, int id) {
+        User existingUser = findById(id);
+        existingUser.setUserName(user.getUserName());
+        entityManager.merge(existingUser);
+        return user;
+    }
+
+}

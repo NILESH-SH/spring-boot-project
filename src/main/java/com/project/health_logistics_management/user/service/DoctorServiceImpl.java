@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.health_logistics_management.user.entity.Doctor;
+import com.project.health_logistics_management.user.entity.User;
 import com.project.health_logistics_management.user.repository.DoctorRepository;
 import com.project.health_logistics_management.user.repository.UserRepository;
 
@@ -11,8 +12,8 @@ import com.project.health_logistics_management.user.repository.UserRepository;
  * DoctorServiceImpl
  */
 
- @Service
-public class DoctorServiceImpl implements DoctorService{
+@Service
+public class DoctorServiceImpl implements DoctorService {
 
     @Autowired
     private DoctorRepository doctorRepository;
@@ -22,9 +23,14 @@ public class DoctorServiceImpl implements DoctorService{
 
     @Override
     public Doctor save(Doctor doctor, int id) {
-        doctor.setUser(userRepository.findById(id).get());
-        return doctorRepository.save(doctor);
+        User u = userRepository.findById(id);
+        // System.out.println(u.getRole().getId());
+        if (u.getRole().getId() == 2) {
+            // System.out.println("Doctor");
+            doctor.setUser(userRepository.findById(id));
+            return doctorRepository.save(doctor);
+        }
+        return null;
     }
 
-    
 }
