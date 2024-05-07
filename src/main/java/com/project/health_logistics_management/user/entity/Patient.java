@@ -1,8 +1,10 @@
 package com.project.health_logistics_management.user.entity;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,10 +33,13 @@ public class Patient {
 
     private String allergies;
 
+    // @ElementCollection
+    // private List<String> allergies;
+
     private int emergencyContact;
 
     @ManyToOne
-    @JoinColumn(name = "user_id" ,nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     @JsonIgnore
     private User user;
 }

@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,6 +31,10 @@ public class User {
     private String userName;
 
     private String passwordHash;
+
+    @ManyToOne
+    @JoinColumn
+    private Role role;
 
     @OneToMany(mappedBy = "user")
     private List<Patient> patients;

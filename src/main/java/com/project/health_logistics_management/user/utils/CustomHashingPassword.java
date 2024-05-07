@@ -1,5 +1,8 @@
-package com.project.health_logistics_management.user.config;
+package com.project.health_logistics_management.user.utils;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class CustomHashingPassword {
 
     // Custom reversible hash function
