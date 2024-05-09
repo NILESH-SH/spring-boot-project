@@ -10,18 +10,21 @@ import com.project.health_logistics_management.healthcare.repository.AppointMent
  * AppointmentsServiceImpl
  */
 
- @Service
+@Service
 public class AppointmentsServiceImpl implements AppointmentsService {
-
 
     @Autowired
     private AppointMentsRepository appointMentsRepository;
-    @Override
-    public Appoinments saveAppoinments(Appoinments appoinments) {
 
-        return appointMentsRepository.save(appoinments);
+    // @Override
+    // public Appoinments saveAppoinments(Appoinments appoinments) {
+    //     return appointMentsRepository.save(appoinments);
+    // }
+
+    @Override
+    public Appoinments saveAppoinments(Appoinments appoinments, int did, int pid) {
+                return appointMentsRepository.save(appoinments,did,pid);
+
     }
 
-
-    
 }

@@ -31,7 +31,6 @@ public class PatientServiceImpl implements PatientService{
 
     @Override
     public List<Patient> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+        return patientRepository.findAll();
     }
 }

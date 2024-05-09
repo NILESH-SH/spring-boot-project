@@ -5,8 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.project.health_logistics_management.healthcare.entity.Appoinments;
+import com.project.health_logistics_management.user.repository.DoctorRepository;
+import com.project.health_logistics_management.user.repository.PatientRepository;
 
 import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 
 /**
  * AppointMentsRepository
@@ -18,11 +21,18 @@ public class AppointMentsRepository {
     @Autowired
     private EntityManager entityManager;
 
-    public Appoinments save(Appoinments appoinments) {
+    @Autowired
+    private DoctorRepository doctorRepository;
 
+    @Autowired 
+    private PatientRepository patientRepository;
+
+    @Transactional
+    public Appoinments save(Appoinments appoinments, int did, int pid) {
+        appoinments.setDoctor(doctorRepository.findById(did));
+        appoinments.setPatient(patientRepository.findById(pid));
         entityManager.persist(appoinments);
         return appoinments;
-
     }
 
 }
