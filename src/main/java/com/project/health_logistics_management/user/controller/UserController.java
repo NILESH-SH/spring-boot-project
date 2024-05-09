@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.health_logistics_management.user.entity.Doctor;
 import com.project.health_logistics_management.user.entity.Patient;
 import com.project.health_logistics_management.user.entity.User;
+import com.project.health_logistics_management.user.errorHandling.NothingFound;
 import com.project.health_logistics_management.user.service.DoctorService;
 import com.project.health_logistics_management.user.service.PatientService;
 import com.project.health_logistics_management.user.service.UserService;
@@ -64,8 +65,12 @@ public class UserController {
     // Patient Controller
 
     @PostMapping("/save-patient/{id}")
-    public Patient savePatient(@RequestBody Patient patient, @PathVariable int id) {
-        return patientService.save(patient,id);
+    public Object savePatient(@RequestBody Patient patient, @PathVariable int id) {
+        Patient savedPatient = patientService.save(patient,id);
+        if (savedPatient == null) {
+            return "Error!";
+        }
+        return savedPatient;
     }
 
     @GetMapping("/all-patient")
@@ -76,11 +81,32 @@ public class UserController {
     // Doctor Controller
 
     @PostMapping("/save-doctor/{id}")
-    public String saveDoctor(@RequestBody Doctor doctor, @PathVariable int id) {
-        if (doctorService.save(doctor,id) == null) {
-            return "Error !";
+    public Object saveDoctor(@RequestBody Doctor doctor, @PathVariable int id) {
+        Doctor savedDoctor = doctorService.save(doctor, id);
+        if (savedDoctor == null) {
+            return "Error ! Can't save Patient to Doctor";
             
         }
-        return "Doctor Saved";
+        return savedDoctor;
+    }
+
+    @PostMapping("/doctor-id/{id}/appointments")
+    public Object getAppoinments(@PathVariable int id){
+        return doctorService.getAllAppoinments(id);
+    }
+
+
+    @Autowired
+    private NothingFound nothingFound;
+
+    @GetMapping("/doctor-id/{id}")
+    public Object getAllDoctor(@PathVariable int id){
+        Doctor d = doctorService.fetchDoctor(id);
+        if (d == null) {
+            // return "Nothing found";
+            return nothingFound;
+        }
+        // System.out.println(d);
+        return doctorService.fetchDoctor(id);
     }
 }

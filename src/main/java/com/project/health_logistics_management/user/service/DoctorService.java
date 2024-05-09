@@ -10,5 +10,9 @@ public interface DoctorService {
 
     Doctor save(Doctor doctor, int id);
 
+    Object getAllAppoinments(int id);
+
+    Doctor fetchDoctor(int id);
+
     
 }

@@ -33,7 +33,7 @@ public class Prescriptions {
 
 
 
-    private Patient patient;
+    // private Patient patient;
 
-    private Doctor doctor;
+    // private Doctor doctor;
 }

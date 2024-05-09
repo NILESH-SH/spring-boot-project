@@ -54,4 +54,15 @@ public class DoctorRepository {
         return Doctor;
     }
 
+    public Object allAppoinments(int id) {
+        return null;
+    }
+
+    public Doctor allDoctors(int id) {
+        // return entityManager.find(Doctor.class, id);
+        return entityManager.find(Doctor.class, id);
+
+        // return entityManager.createQuery("Select d from Doctor d", Doctor.class).getResultList();
+    }
+
 }

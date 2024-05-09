@@ -1,6 +1,8 @@
 
 package com.project.health_logistics_management.healthcare.repository;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -34,5 +36,11 @@ public class AppointMentsRepository {
         entityManager.persist(appoinments);
         return appoinments;
     }
+
+    public Object allAppoinments() {
+
+        return entityManager.createQuery("Select a from Appoinments a",Appoinments.class).getResultList();
+    }
+
 
 }
